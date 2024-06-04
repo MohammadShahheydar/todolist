@@ -5,6 +5,123 @@ html , body {
 }
 
 .layout {
+  direction: rtl;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 50px 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .layout {
+    padding: 50px 30px !important;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 100;
+  src: url("/font/ttf/Vazirmatn-Thin.ttf") format("ttf");
+}
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 200;
+  src: url("/font/ttf/Vazirmatn-ExtraLight.ttf") format("ttf");
+}
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 300;
+  src: url("/font/ttf/Vazirmatn-Light.ttf") format("ttf");
+}
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/font/ttf/Vazirmatn-Regular.ttf") format("ttf");
+}
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/font/ttf/Vazirmatn-Medium.ttf") format("ttf");
+}
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 600;
+  src: url("/font/ttf/Vazirmatn-SemiBold.ttf") format("ttf");
+}
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/font/ttf/Vazirmatn-Bold.ttf") format("ttf");
+}
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 800;
+  src: url("/font/ttf/Vazirmatn-ExtraBold.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 100;
+  src: url("/font/webfonts/Vazirmatn-Thin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 200;
+  src: url("/font/webfonts/Vazirmatn-ExtraLight.woff2") format("woff2");
+}
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 300;
+  src: url("/font/webfonts/Vazirmatn-Light.woff2") format("woff2");
+}
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/font/webfonts/Vazirmatn-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/font/webfonts/Vazirmatn-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 600;
+  src: url("/font/webfonts/Vazirmatn-SemiBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/font/webfonts/Vazirmatn-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "vazir";
+  font-style: normal;
+  font-weight: 800;
+  src: url("/font/webfonts/Vazirmatn-ExtraBold.woff2") format("woff2");
+}
+
+
+html {
+  font-family: vazir, serif;
 }
