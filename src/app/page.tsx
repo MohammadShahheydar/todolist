@@ -1,3 +1,4 @@
+import ListLayout from "@/features/todoList/ui/layout/ListLayout";
 
 /**
  * @description route "/" render todos list
@@ -5,8 +6,6 @@
  */
 export default function Home() {
   return (
-    <main>
-
-    </main>
+    <ListLayout/>
   );
 }
