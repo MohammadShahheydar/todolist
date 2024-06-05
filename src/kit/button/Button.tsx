@@ -1,15 +1,16 @@
 "use client"
 import React, {ReactNode} from 'react';
 import styles from "@/kit/button/Button.module.css"
+import {on} from "next/dist/client/components/react-dev-overlay/pages/bus";
 
 
 const Button = ({variant, children, onClick}: {
     variant: "success" | "danger" | "info",
     children: ReactNode,
-    onClick?: (e: Event) => void
+    onClick?: () => void
 }) => {
     return (
-        <button className={`${styles.btn} ${styles["btn-"+variant]}`}>
+        <button onClick={() => onClick?.()} className={`${styles.btn} ${styles["btn-"+variant]}`}>
             {children}
         </button>
     );
