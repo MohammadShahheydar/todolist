@@ -93,9 +93,13 @@ const StoreProvider = ({children}: { children: ReactNode }): ReactNode => {
         }))
     }, [])
 
+    const actionGetTodo = useCallback((id: string | number) => {
+        return todos?.find(val => val.id == id)
+    }, [todos]);
+
     return (
         <TodoListContext.Provider
-            value={{todos, addTodo: actionAddTodo, editTodo: actionAddTodo, removeTodo: actionRemoveTodo , updateStatus: actionUpdateStatus}}>
+            value={{todos, addTodo: actionAddTodo, editTodo: actionEditTodo, removeTodo: actionRemoveTodo , updateStatus: actionUpdateStatus , getTodoById: actionGetTodo}}>
             {children}
         </TodoListContext.Provider>
     );
