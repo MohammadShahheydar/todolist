@@ -12,10 +12,11 @@ export enum TodoStatus {
 }
 
 export interface TodoListContextModel {
-    todos: TodoModel[],
+    todos?: TodoModel[],
     addTodo: (todo: AddTodoPropType) => void,
     removeTodo: (id: string | number) => void,
     editTodo: (todo: EditTodoPropType) => void,
+    updateStatus: (id: string | number, status: TodoStatus) => void
 }
 
 export type AddTodoPropType = Pick<TodoModel , "description" | "title">
