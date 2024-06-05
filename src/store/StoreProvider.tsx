@@ -8,7 +8,6 @@ import {
     TodoStatus
 } from "@/store/data/TodoListModels";
 import {v4} from 'uuid';
-import {Simulate} from "react-dom/test-utils";
 
 let TodoListContext = createContext<TodoListContextModel | undefined>(undefined);
 
@@ -19,14 +18,14 @@ let TodoListContext = createContext<TodoListContextModel | undefined>(undefined)
  */
 const StoreProvider = ({children}: { children: ReactNode }): ReactNode => {
 
-    const [todos, setTodos] = useState<TodoModel[]>([])
+    const [todos, setTodos] = useState<TodoModel[] | undefined>()
 
     /**
      * @description get todos data from local storage and populate state when component mount
      */
     useEffect(() => {
-        if (todos.length == 0 && localStorage) {
-            setTodos(localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos') ?? "[]") : []);
+        if (localStorage) {
+            setTodos(localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos') ?? "[]") : undefined);
         }
     }, []);
 
@@ -34,7 +33,7 @@ const StoreProvider = ({children}: { children: ReactNode }): ReactNode => {
      * @description update local storage with new todos array after todos state change
      */
     useEffect(() => {
-        if (localStorage && todos.length > 0)
+        if (localStorage && todos)
             localStorage.setItem('todos', JSON.stringify(todos))
     }, [todos]);
 
@@ -52,7 +51,7 @@ const StoreProvider = ({children}: { children: ReactNode }): ReactNode => {
             ...todo
         } as TodoModel
 
-        setTodos(prevState => [...prevState, newTodo])
+        setTodos(prevState => [...(prevState ?? []), newTodo])
     }, [])
 
     /**
@@ -62,7 +61,7 @@ const StoreProvider = ({children}: { children: ReactNode }): ReactNode => {
      * @return void
      */
     const actionEditTodo = useCallback((todo: EditTodoPropType) => {
-        setTodos(prevState => prevState.map(val => {
+        setTodos(prevState => prevState?.map(val => {
             if (val.id == todo.id)
                 return {
                     ...val,
@@ -80,12 +79,23 @@ const StoreProvider = ({children}: { children: ReactNode }): ReactNode => {
      * @return {void}
      */
     const actionRemoveTodo = useCallback((id: string | number) => {
-        setTodos(prevState => prevState.filter(val => val.id == id))
+        setTodos(prevState => prevState?.filter(val => val.id != id))
+    }, [])
+
+    const actionUpdateStatus = useCallback((id: string | number, status: TodoStatus) => {
+        setTodos(prevState => prevState?.map(val => {
+            if (val.id == id)
+                return {
+                    ...val,
+                    status
+                }
+            return val
+        }))
     }, [])
 
     return (
         <TodoListContext.Provider
-            value={{todos, addTodo: actionAddTodo, editTodo: actionAddTodo, removeTodo: actionRemoveTodo}}>
+            value={{todos, addTodo: actionAddTodo, editTodo: actionAddTodo, removeTodo: actionRemoveTodo , updateStatus: actionUpdateStatus}}>
             {children}
         </TodoListContext.Provider>
     );
