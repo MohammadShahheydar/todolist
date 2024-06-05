@@ -1,5 +1,5 @@
 'use client'
-import React, {createContext, ReactNode, useCallback, useState} from 'react';
+import React, {createContext, ReactNode, useCallback, useContext, useEffect, useState} from 'react';
 import {
     AddTodoPropType,
     EditTodoPropType,
@@ -8,6 +8,7 @@ import {
     TodoStatus
 } from "@/store/data/TodoListModels";
 import {v4} from 'uuid';
+import {Simulate} from "react-dom/test-utils";
 
 let TodoListContext = createContext<TodoListContextModel | undefined>(undefined);
 
@@ -19,6 +20,23 @@ let TodoListContext = createContext<TodoListContextModel | undefined>(undefined)
 const StoreProvider = ({children}: { children: ReactNode }): ReactNode => {
 
     const [todos, setTodos] = useState<TodoModel[]>([])
+
+    /**
+     * @description get todos data from local storage and populate state when component mount
+     */
+    useEffect(() => {
+        if (todos.length == 0 && localStorage) {
+            setTodos(localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos') ?? "[]") : []);
+        }
+    }, []);
+
+    /**
+     * @description update local storage with new todos array after todos state change
+     */
+    useEffect(() => {
+        if (localStorage && todos.length > 0)
+            localStorage.setItem('todos', JSON.stringify(todos))
+    }, [todos]);
 
 
     /**
@@ -74,3 +92,5 @@ const StoreProvider = ({children}: { children: ReactNode }): ReactNode => {
 };
 
 export default StoreProvider;
+
+export const useTodoList = () => useContext(TodoListContext)!;
