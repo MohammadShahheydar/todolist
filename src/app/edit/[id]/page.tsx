@@ -5,6 +5,11 @@ import Button from "@/kit/button/Button";
 import {Home} from "lucide-react";
 import Link from "next/link";
 
+
+/**
+ * @description route "/edit/[id]" edit todos item
+ * @return {JSX.Element}
+ */
 const Page = (
     {
         params,

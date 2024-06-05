@@ -1,6 +1,11 @@
 import ShowLayout from "@/features/showTodo/ui/layout/showLayout";
 import {Suspense} from "react";
 
+
+/**
+ * @description route "/[id]" show page for todos item
+ * @return {JSX.Element}
+ */
 const Page = (
     {
         params,

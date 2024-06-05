@@ -5,6 +5,10 @@ import Link from "next/link";
 import Button from "@/kit/button/Button";
 import {Home} from "lucide-react";
 
+/**
+ * @description route "/create" create todos item
+ * @return {JSX.Element}
+ */
 const Page = () => {
     return (
         <PageGreeting
