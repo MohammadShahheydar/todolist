@@ -5,9 +5,12 @@ import {Check, CheckCheck, ListTodo, Pencil, Trash2} from "lucide-react";
 import Card from "@/kit/card/Card";
 import {TodoModel, TodoStatus} from "@/store/data/TodoListModels";
 import {useTodoList} from "@/store/StoreProvider";
+import {useRouter} from "next/navigation";
+import Link from "next/link";
 
 const TodoCard = ({id , status ,description ,title}: TodoModel) => {
-    
+
+    let router = useRouter();
     let {updateStatus , removeTodo} = useTodoList();
 
     /**
@@ -20,29 +23,31 @@ const TodoCard = ({id , status ,description ,title}: TodoModel) => {
     }
     
     return (
-        <Card bg={'gradient'}>
-            <div className={styles.title}>
-                <h4>{title}</h4>
-                <p>{description}</p>
-            </div>
-            <div className={styles.actions}>
-                {(status != TodoStatus.FULFILLED) && (
-                    <Button variant={'success'} onClick={handleUpdateTodoStatus}>
-                        {status == TodoStatus.IDL ? (
-                            <ListTodo size={20} strokeWidth={1}/>
-                        ) : (status == TodoStatus.PENDING) ? (
-                            <Check size={20} strokeWidth={1} />
-                        ) : (<CheckCheck size={20} strokeWidth={1} />)}
-                    </Button>  
-                )}
-                <Button variant={'info'}>
-                    <Pencil size={20} strokeWidth={1}/>
-                </Button>
-                <Button variant={'danger'} onClick={() => removeTodo(id)}>
-                    <Trash2 size={20} strokeWidth={1}/>
-                </Button>
-            </div>
-        </Card>
+        <Link href={`${id}`}>
+            <Card bg={'gradient'}>
+                <div className={styles.title}>
+                    <h4>{title}</h4>
+                    <p>{description}</p>
+                </div>
+                <div className={styles.actions}>
+                    {(status != TodoStatus.FULFILLED) && (
+                        <Button variant={'success'} onClick={handleUpdateTodoStatus}>
+                            {status == TodoStatus.IDL ? (
+                                <ListTodo size={20} strokeWidth={1}/>
+                            ) : (status == TodoStatus.PENDING) ? (
+                                <Check size={20} strokeWidth={1} />
+                            ) : (<CheckCheck size={20} strokeWidth={1} />)}
+                        </Button>
+                    )}
+                    <Button variant={'info'}>
+                        <Pencil size={20} strokeWidth={1} onClick={() => router.push(`/edit/${id}`)}/>
+                    </Button>
+                    <Button variant={'danger'} onClick={() => removeTodo(id)}>
+                        <Trash2 size={20} strokeWidth={1}/>
+                    </Button>
+                </div>
+            </Card>
+        </Link>
     );
 };
 
